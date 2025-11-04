@@ -43,7 +43,22 @@ const bokehPass = new BokehPass(scene, camera, { focus: 2.3, aperture: 0.005, ma
 composer.addPass(bokehPass);
 
 // --- 5. Environment ---
+// --- 5. Environment ---
 const rgbeLoader = new RGBELoader();
+rgbeLoader.load('/static/assets/kiara_9d_dawn_4k.hdr', (texture) => {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+
+    // --- THIS IS THE DIMMER SWITCH ---
+    // A value of 1.0 is default brightness. Lower values make it dimmer.
+    const backgroundIntensity = 0.3;
+
+    scene.background = texture;
+    scene.backgroundIntensity = backgroundIntensity;
+
+    scene.environment = texture;
+    scene.environmentIntensity = backgroundIntensity;
+
+});
 rgbeLoader.load('/static/assets/kiara_9d_dawn_4k.hdr', (texture) => {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     scene.background = texture;
@@ -58,8 +73,8 @@ const textureLoader = new THREE.TextureLoader();
 
 fbxLoader.load(modelPath, (object) => {
     // --- THIS LOCATION AND SIZE CODE IS LOCKED ---
-    object.scale.set(0.025, 0.025, 0.025);
-    const targetX = 0.00, targetY = 0.8, cameraZ = 2.6;
+    object.scale.set(0.035, 0.035, 0.035);
+    const targetX = 0.00, targetY = 1.2, cameraZ = 2.6;
     controls.target.set(targetX, targetY, 0);
     camera.position.set(targetX, targetY, cameraZ);
     // --- END OF LOCKED CODE ---
