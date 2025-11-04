@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UNSC System Monitor</title>
+    <!-- Link to Google Fonts for our Halo-style font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css?v=halo_ui">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <!-- This is the full UI overlay -->
+    <div id="info-overlay">
+        <div class="header">
+            <h1 id="time">--:--:--</h1>
+            <p id="date">----------</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h2>CPU</h2>
+                <p class="stat-value"><span id="cpu-load">--</span>%</p>
+                <p class="stat-temp"><span id="cpu-temp">--</span>°C</p>
+            </div>
+            <div class="stat-box">
+                <h2>GPU</h2>
+                <p class="stat-value"><span id="gpu-load">--</span>%</p>
+                <p class="stat-temp"><span id="gpu-temp">--</span>°C</p>
+            </div>
+            <div class="stat-box">
+                <h2>RAM</h2>
+                <p class="stat-value"><span id="ram-usage">--</span>%</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+    </script>
+    <script type="module" src="/static/main.js?v=halo_ui"></script>
+</body>
+</html>

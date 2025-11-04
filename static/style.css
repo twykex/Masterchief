@@ -1,0 +1,128 @@
+:root {
+    --halo-blue: #00e8ff;
+    --halo-blue-glow: rgba(0, 232, 255, 0.4);
+    --halo-dark-blue: #0a111a;
+    --halo-font: 'Exo 2', sans-serif;
+}
+
+html, body {
+    width: 100%; height: 100%;
+    overflow: hidden; margin: 0; padding: 0;
+}
+body {
+    font-family: var(--halo-font);
+    background-color: #000;
+    color: #fff;
+}
+#canvas-container {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; z-index: 1;
+}
+
+/* The main UI container */
+#info-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; z-index: 2;
+    padding: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+/* --- INTRO ANIMATIONS --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 25px;
+    width: 100%;
+    animation: fadeInUp 0.8s 0.2s ease-out forwards; /* Delayed start */
+    opacity: 0; /* Start hidden */
+}
+
+/* --- Header: Time and Date --- */
+#time {
+    font-size: 8em; font-weight: 200;
+    margin: 0; letter-spacing: -1px;
+    color: var(--halo-blue);
+    text-shadow: 0 0 15px var(--halo-blue-glow), 0 0 25px var(--halo-blue-glow);
+}
+#date {
+    font-size: 2em; font-weight: 400;
+    margin: 0; opacity: 0.8;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* --- THE HEXAGON STAT BOX --- */
+.stat-box {
+    position: relative; /* Needed for the pseudo-element */
+    overflow: hidden;   /* Keep the scanline contained */
+    background-color: rgba(10, 25, 35, 0.75);
+    backdrop-filter: blur(8px);
+    text-align: center;
+    padding: 30px 20px;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    border: 1px solid var(--halo-blue-glow);
+    box-shadow: 0 0 15px var(--halo-blue-glow);
+}
+
+/* --- SCANLINE EFFECT --- */
+@keyframes scanline {
+    0% { top: -100%; }
+    100% { top: 100%; }
+}
+
+.stat-box::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(0, 232, 255, 0), rgba(0, 232, 255, 0.1), rgba(0, 232, 255, 0));
+    animation: scanline 5s linear infinite;
+}
+/* Stagger the scanline animation for each box */
+.stat-box:nth-child(2)::after { animation-delay: -1.7s; }
+.stat-box:nth-child(3)::after { animation-delay: -3.4s; }
+
+/* --- Stat Text Styling (Unchanged) --- */
+.stat-box h2 {
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    font-size: 1.5em;
+    opacity: 0.7;
+    text-transform: uppercase;
+}
+.stat-box .stat-value {
+    font-size: 4em;
+    margin: 10px 0;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--halo-blue);
+    text-shadow: 0 0 10px var(--halo-blue-glow);
+}
+.stat-box .stat-temp {
+    font-size: 2.5em;
+    margin: 5px 0 0 0;
+    font-weight: 400;
+    opacity: 0.8;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
